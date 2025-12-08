@@ -1,6 +1,7 @@
 package amazoninternal.pizzapricing;
 
 
-public abstract class Base extends Pizza {
-    Size size;  // SMALL, MEDIUM, LARGE
+public interface  Base extends Pizza{
+    String getBaseName();
+    int getPrice(Size size);
 }
