@@ -15,6 +15,13 @@ import java.util.PriorityQueue;
  * So:
  * Time Complexity: O(n log k)
  * Space Complexity: O(k) for map + heap (plus O(n) for output string, which is expected).
+ *
+ * We always choose the character with the highest remaining frequency because it
+ * is the most likely to create adjacency conflicts later.
+ * If that character matches the last character we placed,
+ * we instead pick the next highest-frequency character.
+ * This greedy choice ensures that high-frequency characters are spaced out as much as possible.
+ * If at any point no alternate character exists, the arrangement is impossible
  */
 
 public class RearrangeCharsInString {
