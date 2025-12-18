@@ -1,54 +1,42 @@
 package amazoninternal.parkinglot;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.Clock;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Optional;
 
 public class ParkingLotManagement {
-    static Map<String, Ticket> mapOfOpenTickets;
-    static int[] availableSpaces; //small, medium, large
+    public static void main(String[] args) throws InterruptedException {
+        Clock clock = Clock.systemUTC();
 
-    public ParkingLotManagement(int smallSpaces, int mediumSpaces, int largeSpaces) {
-        mapOfOpenTickets = new HashMap<>();
-        availableSpaces = new int[]{smallSpaces, mediumSpaces, largeSpaces};
-    }
+        TicketFactory ticketFactory = new UuidTicketFactory(clock);
 
-    public static void main(String args[]) {
-        ParkingLotManagement parkingLotManagement = new ParkingLotManagement(5, 2, 5);
-        Vehicle vehicle = new Vehicle("ICV890", "SMALL");
-        int vehicleSize = getVehicleType(vehicle.vehicleSize);
-        if (availableSpaces[vehicleSize] > 0) {
-            Ticket ticket = entry(vehicle);
+        Map<VehicleSize, Double> rates = Map.of(
+                VehicleSize.SMALL, 5.0,
+                VehicleSize.MEDIUM, 7.0,
+                VehicleSize.LARGE, 10.0
+        );
+        PricingStrategy pricing = new HourlyPricingStrategy(rates);
+
+        ParkingLot lot = new ParkingLot(5, 2, 5, ticketFactory, pricing, clock);
+
+        Vehicle v1 = new Vehicle("ICV890", VehicleSize.SMALL);
+
+        Optional<Ticket> maybeTicket = lot.entry(v1);
+        if (maybeTicket.isEmpty()) {
+            System.out.println("No space available for " + v1.getSize());
+            return;
         }
+
+        Ticket t = maybeTicket.get();
+        System.out.println("Issued ticket: " + t.getTicketId());
+        System.out.println("Available SMALL: " + lot.getAvailable(VehicleSize.SMALL));
+
+        // simulate time passing
+        Thread.sleep(1500);
+
+        double amount = lot.exit(t.getTicketId());
+        System.out.println("Amount due: $" + amount);
+        System.out.println("Available SMALL: " + lot.getAvailable(VehicleSize.SMALL));
     }
 
-    public static double exit(String ticketId) {
-        Ticket ticket = mapOfOpenTickets.get(ticketId);
-        String exitTime = LocalDateTime.now().toString();
-        //Calculate payment based on diff of ticket entryTime and exitTime
-        int vehicleSize = getVehicleType(ticket.vehicle.vehicleSize);
-        mapOfOpenTickets.remove(ticketId);
-        availableSpaces[vehicleSize]++;
-        return 0.0;
-    }
-
-    public static Ticket entry(Vehicle vehicle) {
-        String ticketId = UUID.randomUUID().toString();
-        Ticket ticket = new Ticket(ticketId, vehicle, LocalDateTime.now().toString());
-        int vehicleSize = getVehicleType(vehicle.vehicleSize);
-        availableSpaces[vehicleSize]--;
-        mapOfOpenTickets.put(ticketId, ticket);
-        return ticket;
-    }
-
-    public static int getVehicleType(String vehicleSize) {
-        if (vehicleSize.equals("SMALL")) {
-            return 0;
-        } else if (vehicleSize.equals("MEDIUM")) {
-            return 1;
-        } else {
-            return 2;
-        }
-    }
 }
