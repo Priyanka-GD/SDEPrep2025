@@ -66,7 +66,7 @@ public class WhoIsOurBoss {
                 return temp;
             temp = temp.getManager();
         }
-        throw new IllegalStateException();
+        throw new IllegalStateException("Manager could not be found!!");
     }
 
     private static Set<Employee> findManager(Employee e1) {
