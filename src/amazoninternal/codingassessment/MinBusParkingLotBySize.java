@@ -1,4 +1,4 @@
-package amazoninternal;
+package amazoninternal.codingassessment;
 
 import java.util.*;
 
