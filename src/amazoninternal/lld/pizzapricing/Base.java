@@ -1,4 +1,4 @@
-package amazoninternal.pizzapricing;
+package amazoninternal.lld.pizzapricing;
 
 
 public interface  Base extends Pizza{

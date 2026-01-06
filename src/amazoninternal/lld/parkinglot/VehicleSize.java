@@ -1,3 +1,3 @@
-package amazoninternal.parkinglot;
+package amazoninternal.lld.parkinglot;
 
 public enum VehicleSize { SMALL, MEDIUM, LARGE }

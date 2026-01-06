@@ -1,4 +1,4 @@
-package amazoninternal.pizzapricing;
+package amazoninternal.lld.pizzapricing;
 public class Main {
     public static void main(String[] args) {
         // Step 1: Choose size

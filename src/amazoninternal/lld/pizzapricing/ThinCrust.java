@@ -1,20 +1,21 @@
-package amazoninternal.pizzapricing;
+package amazoninternal.lld.pizzapricing;
 
-public class ThickCrust implements Base, Pizza {
-    private Size size;
+public class ThinCrust implements Base, Pizza {
 
-    public ThickCrust(Size size) {
+    private final Size size;
+
+    public ThinCrust(Size size) {
         this.size = size;
     }
 
     @Override
     public String getBaseName() {
-        return "Thick Crust";
+        return "Thin Crust";
     }
 
     @Override
     public int getPrice(Size size) {
-        return 9 + size.getBasePrice();
+        return size.getBasePrice() + 5;
     }
 
     @Override

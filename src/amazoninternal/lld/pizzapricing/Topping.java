@@ -1,4 +1,4 @@
-package amazoninternal.pizzapricing;
+package amazoninternal.lld.pizzapricing;
 
 public abstract class Topping implements Pizza {
     protected Pizza pizza;

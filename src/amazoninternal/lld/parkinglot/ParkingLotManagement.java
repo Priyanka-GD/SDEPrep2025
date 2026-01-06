@@ -1,4 +1,4 @@
-package amazoninternal.parkinglot;
+package amazoninternal.lld.parkinglot;
 
 import java.time.Clock;
 import java.util.Map;

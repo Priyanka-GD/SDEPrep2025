@@ -1,4 +1,4 @@
-package amazoninternal.pizzapricing;
+package amazoninternal.lld.pizzapricing;
 
 public class Small implements Size {
     @Override

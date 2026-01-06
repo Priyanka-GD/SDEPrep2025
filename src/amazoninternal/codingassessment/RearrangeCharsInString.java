@@ -55,7 +55,6 @@ public class RearrangeCharsInString {
                 } else {
                     return "";
                 }
-
                 maxHeap.add(charFreq);
             } else {
                 str.append(charFreq.ch);

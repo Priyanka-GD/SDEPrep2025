@@ -35,7 +35,11 @@ public class WordLadder {
 
             for (int idx = 0; idx < currWord.length(); idx++) {
                 String combination = currWord.substring(0, idx) + "*" + currWord.substring(idx + 1);
-                for (String word : wrappedWordsMap.getOrDefault(combination, new ArrayList<>())) {
+                List<String> neighbors = wrappedWordsMap.get(combination);
+                if (neighbors == null)
+                    continue;
+
+                for (String word : neighbors) {
                     if (!visited.contains(word)) {
                         if (word.equals(endWord))
                             return currLevel + 1;
@@ -43,6 +47,7 @@ public class WordLadder {
                         queue.add(new Pair(word, currLevel + 1));
                     }
                 }
+                neighbors.clear();
             }
         }
         return 0;
@@ -58,3 +63,4 @@ class Pair {
         this.level = level;
     }
 }
+//O(N * L * L)

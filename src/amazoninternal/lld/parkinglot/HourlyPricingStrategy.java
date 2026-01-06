@@ -1,4 +1,4 @@
-package amazoninternal.parkinglot;
+package amazoninternal.lld.parkinglot;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

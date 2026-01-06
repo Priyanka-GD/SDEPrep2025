@@ -1,4 +1,4 @@
-package amazoninternal.pizzapricing;
+package amazoninternal.lld.pizzapricing;
 
 public class FreshTomato extends Topping {
     public FreshTomato(Pizza pizza) {
