@@ -1,4 +1,4 @@
-package amazonoa.lld.restaurantreservation;
+package amazoninternal.lld.restaurantreservation;
 
 public class AvailableState implements TableState {
     @Override

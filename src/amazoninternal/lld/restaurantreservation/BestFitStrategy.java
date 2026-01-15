@@ -1,4 +1,4 @@
-package amazonoa.lld.restaurantreservation;
+package amazoninternal.lld.restaurantreservation;
 
 import java.util.Comparator;
 import java.util.List;

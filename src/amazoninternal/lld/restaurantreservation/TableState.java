@@ -1,4 +1,4 @@
-package amazonoa.lld.restaurantreservation;
+package amazoninternal.lld.restaurantreservation;
 
 public interface TableState {
     void reserve(Table table);

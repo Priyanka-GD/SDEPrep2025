@@ -1,4 +1,4 @@
-package amazonoa.lld.restaurantreservation;
+package amazoninternal.lld.restaurantreservation;
 public class Main {
     public static void main(String[] args) {
         // 1. Setup the system with a specific Strategy

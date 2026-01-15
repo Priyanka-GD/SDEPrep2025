@@ -1,4 +1,4 @@
-package amazoninternal.lld;
+package amazoninternal.codingassessment;
 
 import java.util.ArrayList;
 import java.util.Collection;
