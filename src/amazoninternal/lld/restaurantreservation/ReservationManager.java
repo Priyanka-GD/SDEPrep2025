@@ -24,26 +24,35 @@ public class ReservationManager {
         this.allocationStrategy = strategy;
     }
 
+    private Table searchTable(int partySize) {
+        return allocationStrategy.allocate(tables, partySize);
+    }
     /**
      * The core method to seat a customer
      */
-    public Table findAndOccupyTable(int partySize, Customer customer) {
-        // 1. Get only available tables
-        List<Table> availableTables = tables.stream()
-                .filter(t -> t.currentState instanceof AvailableState)
-                .collect(Collectors.toList());
-
-        // 2. Use the strategy to pick the best one
-        Table selectedTable = allocationStrategy.allocate(availableTables, partySize);
-
+    public Table findAndReserveTable(int partySize, Customer customer) {
+        Table selectedTable = searchTable(partySize);
         if (selectedTable != null) {
-            selectedTable.occupy(); // This triggers the State Pattern transition
-            System.out.println("Assigned Table #" + selectedTable.getTableId() + " to " + customer.getName());
+            selectedTable.reserve(); // Correct: Transitions to ReservedState
+            System.out.println("Reserved Table #" + selectedTable.getTableId() + " for " + customer.getName());
             return selectedTable;
-        } else {
-            System.out.println("No tables available. Adding " + customer.getName() + " to waitlist.");
-            waitlist.add(customer);
-            return null;
         }
+        return handleWaitlist(customer);
+    }
+
+    public Table findAndOccupyTable(int partySize, Customer customer) {
+        Table selectedTable = searchTable(partySize);
+        if (selectedTable != null) {
+            selectedTable.occupy(); // Correct: Transitions to OccupiedState
+            System.out.println("Occupied Table #" + selectedTable.getTableId() + " for " + customer.getName());
+            return selectedTable;
+        }
+        return handleWaitlist(customer);
+    }
+
+    private Table handleWaitlist(Customer customer) {
+        System.out.println("No tables available. Adding " + customer.getName() + " to waitlist.");
+        waitlist.add(customer);
+        return null;
     }
 }

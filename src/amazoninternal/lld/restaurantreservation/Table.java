@@ -38,4 +38,8 @@ public class Table {
     public void clean() {
         currentState.clean(this);
     }
+
+    public void reserve() {
+        currentState.reserve(this);
+    }
 }

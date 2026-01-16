@@ -4,14 +4,14 @@ public class AvailableState implements TableState {
     @Override
     public void occupy(Table table) {
         System.out.println("Seating guests... Table is now occupied.");
-        // Change the state of the table to Occupied
         table.setState(new OccupiedState());
     }
 
+    // Inside AvailableState.java
     @Override
     public void reserve(Table table) {
-        System.out.println("Reserving table...");
-        // You would typically move to a ReservedState here
+        System.out.println("Table #" + table.getTableId() + " is now Reserved.");
+        table.setState(new ReservedState());
     }
 
     // These remain Illegal because you can't vacate or clean a table that is already empty
