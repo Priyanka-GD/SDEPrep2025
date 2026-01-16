@@ -4,7 +4,8 @@ public class Main {
     public static void main(String[] args) {
         // 1. Setup system with BestFit Strategy
         TableAllocationStrategy strategy = new BestFitStrategy();
-        ReservationManager manager = new ReservationManager(strategy);
+        ReservationManager manager = new ReservationManager();
+        manager.setStrategy(strategy);
 
         // 2. Setup Restaurant Tables
         manager.addTable(new Table(1, 2)); // Table #1

@@ -2,7 +2,6 @@ package amazoninternal.lld.restaurantreservation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ReservationManager {
     private List<Table> tables;
@@ -10,10 +9,9 @@ public class ReservationManager {
     // We will use a simple list for the waitlist for now
     private List<Customer> waitlist;
 
-    public ReservationManager(TableAllocationStrategy strategy) {
+    public ReservationManager() {
         this.tables = new ArrayList<>();
         this.waitlist = new ArrayList<>();
-        this.allocationStrategy = strategy;
     }
 
     public void addTable(Table table) {
