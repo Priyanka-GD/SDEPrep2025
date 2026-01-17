@@ -1,0 +1,40 @@
+Plan Validation
+
+In order to transport Fret, an amazon truck driver needs to know their schedule(Called a plan)
+
+Between fulfilment centres and other transport hubs, example
+
+At 1PM, pick up pallet 1 at location A
+
+At 1PM, drop off pallet 1 at location B
+
+At 2PM, pick up pallet 2 at location B
+
+At 3PM, drop off pallet 1 and pallet 2 at location C
+
+Question -
+
+1. Design a data model to represent a plan
+
+2. Before a plan can be communicated to a truck driver, we need to verify the plan is valid to execute.
+Write an extensible program which checks if a given input plan is valid
+
+3. What do you think some useful validations could be
+
+Follow-ups
+
+1. Scale plan validation(100s of validations)
+2. How can client customize the validators they require
+3. Modelling verbose output to Customer
+
+
+
+// Event times are strictly increasing
+
+// Every pallet picked up must be dropped off
+
+// Pickup before drop off for a pallet
+
+
+
+
