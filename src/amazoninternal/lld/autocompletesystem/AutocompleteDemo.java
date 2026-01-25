@@ -20,7 +20,7 @@ public class AutocompleteDemo {
         autocompleteSystem.insertWord("ball");
         autocompleteSystem.insertWord("app");
 
-        System.out.println("--- Suggestions for 'app' (Frequency Strategy, Limit 2) ---");
+        System.out.println("\n--- Suggestions for 'app' (Frequency Strategy, Limit 2) ---");
         List<String> freqResults = autocompleteSystem.getSuggestions(frequencyStrategy, "app", 2);
         freqResults.forEach(System.out::println);
         // Expected: apple (3), apply (1)

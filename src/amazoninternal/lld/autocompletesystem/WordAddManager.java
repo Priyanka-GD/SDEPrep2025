@@ -1,8 +1,6 @@
 package amazoninternal.lld.autocompletesystem;
-
 import java.util.ArrayList;
 import java.util.List;
-
 public class WordAddManager {
     Trie rootNode;
     private static final int DEFAULT_LIMIT = 10;
