@@ -16,7 +16,7 @@ public class DispenseState implements VendingState {
 
         // 3. Automatically transition back to Idle for the next customer
         System.out.println("Transaction complete. Returning to Idle State.");
-        machine.setCurrentState(machine.getIdleState());
+        machine.setCurrentState(new IdleState());
     }
 
     @Override

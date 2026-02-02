@@ -14,7 +14,7 @@ public class PaymentState implements VendingState {
         if (success) {
             System.out.println("Payment successful.");
             // 3. Transition to DispenseState
-            machine.setCurrentState(machine.getDispenseState());
+            machine.setCurrentState(new DispenseState());
             // Automatically trigger dispense
             machine.getCurrentState().dispenseProduct(machine);
         } else {
@@ -31,7 +31,7 @@ public class PaymentState implements VendingState {
     public void cancelTransaction(VendingMachine machine) {
         System.out.println("Transaction cancelled. Returning to Idle.");
         machine.setSelectedItemCode(null);
-        machine.setCurrentState(machine.getIdleState());
+        machine.setCurrentState(new IdleState());
     }
 
     @Override

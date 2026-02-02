@@ -4,14 +4,6 @@ import java.util.Map;
 
 public class VendingMachine {
     // 1. All possible states (Pre-instantiated for efficiency)
-    private VendingState idleState;
-    private VendingState selectionState;
-    private VendingState paymentState;
-    private VendingState dispenseState;
-    public VendingState getSelectionState() { return selectionState; }
-    public VendingState getPaymentState() { return paymentState; }
-    public VendingState getIdleState() { return idleState; }
-    public VendingState getDispenseState() { return dispenseState; }
     // 2. The dynamic state
     private VendingState currentState;
 
@@ -23,14 +15,8 @@ public class VendingMachine {
     public VendingMachine(Map<String, Slot> inventory) {
         this.inventory = inventory;
 
-        // Initialize states
-        this.idleState = new IdleState();
-        this.selectionState = new SelectionState();
-        this.paymentState = new PaymentState();
-        this.dispenseState = new DispenseState();
-
         // Start in the Idle state
-        this.currentState = idleState;
+        this.currentState = new IdleState();
     }
 
     public boolean getAvailability(String code) {

@@ -10,7 +10,7 @@ public class IdleState implements VendingState {
             machine.setSelectedItemCode(productCode);
             // 3. State Transition: Move to the next state
             System.out.println("Product " + productCode + " selected.");
-            machine.setCurrentState(machine.getSelectionState());
+            machine.setCurrentState(machine.getCurrentState());
         } else {
             System.out.println("Product out of stock or invalid code.");
         }

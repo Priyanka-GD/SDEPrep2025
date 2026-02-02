@@ -18,7 +18,7 @@ public class SelectionState implements VendingState {
         // This is the "Success Path"
         // Transition to PaymentState and immediately trigger the payment logic
         System.out.println("Proceeding to payment...");
-        machine.setCurrentState(machine.getPaymentState());
+        machine.setCurrentState(new PaymentState());
 
         // Delegate the actual payment work to the new state
         machine.getCurrentState().handlePayment(machine, strategy);
@@ -28,7 +28,7 @@ public class SelectionState implements VendingState {
     public void cancelTransaction(VendingMachine machine) {
         System.out.println("Selection cancelled. Returning to Idle State.");
         machine.setSelectedItemCode(null);
-        machine.setCurrentState(machine.getIdleState());
+        machine.setCurrentState(new IdleState());
     }
 
     @Override
