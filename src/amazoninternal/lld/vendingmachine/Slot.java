@@ -34,5 +34,5 @@ public class Slot {
     public String getCode() {
         return code;
     }
-// Getters for item price and name...
+    // Getters for item price and name...
 }

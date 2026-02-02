@@ -1,5 +1,4 @@
 package amazoninternal.lld.vendingmachine;
-
 import java.util.Map;
 
 public class VendingMachine {
@@ -9,12 +8,10 @@ public class VendingMachine {
 
     // 3. Data Storage
     private Map<String, Slot> inventory;
-    private int quantity;
     private String selectedItemCode;
 
     public VendingMachine(Map<String, Slot> inventory) {
         this.inventory = inventory;
-
         // Start in the Idle state
         this.currentState = new IdleState();
     }

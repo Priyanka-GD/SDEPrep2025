@@ -6,15 +6,10 @@ public class DispenseState implements VendingState {
     public void dispenseProduct(VendingMachine machine) {
         String code = machine.getSelectedItemCode();
         Slot slot = machine.getInventory().get(code);
-
         // 1. Perform the physical action (Updating the data)
         slot.dispenseItem(1);
         System.out.println("Dispensing: " + slot.getItem().name);
-
-        // 2. Cleanup the transaction data
-        machine.setSelectedItemCode(null);
-
-        // 3. Automatically transition back to Idle for the next customer
+        // 2. Automatically transition back to Idle for the next customer
         System.out.println("Transaction complete. Returning to Idle State.");
         machine.setCurrentState(new IdleState());
     }
