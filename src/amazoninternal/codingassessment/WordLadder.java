@@ -47,7 +47,6 @@ public class WordLadder {
                         queue.add(new Pair(word, currLevel + 1));
                     }
                 }
-                neighbors.clear();
             }
         }
         return 0;

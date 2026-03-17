@@ -59,3 +59,9 @@ public class PackageManager {
         return order;
     }
 }
+/*
+*
+* Your code correctly reverses the input edges to create a "dependency-to-package"
+* graph (B -> A), which ensures that nodes with an inDegree of 0
+* are the "base" dependencies that can be installed immediately.
+* */

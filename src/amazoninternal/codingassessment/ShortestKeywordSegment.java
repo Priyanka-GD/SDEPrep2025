@@ -62,10 +62,10 @@ public class ShortestKeywordSegment {
 
         for (int right = 0; right < n; right++) {
             String word = document.get(right);
+            windowFreq.put(word, windowFreq.getOrDefault(word, 0) + 1);
 
             if (keywords.contains(word)) {
-                windowFreq.put(word, windowFreq.getOrDefault(word, 0) + 1);
-                if (windowFreq.get(word) == 1) {
+                if (windowFreq.get(word) >= 1) {
                     // first time this keyword appears in the window
                     covered++;
                 }
@@ -112,7 +112,7 @@ public class ShortestKeywordSegment {
 
         Result res = findShortestSegment(document, keywords);
         if (res != null) {
-            System.out.println("Shortest segment: " + res.segment);
+            System.out.println("Shortest segment 1: " + res.segment);
             System.out.println("Start index: " + res.start + ", End index: " + res.end);
         } else {
             System.out.println("No segment contains all keywords.");
