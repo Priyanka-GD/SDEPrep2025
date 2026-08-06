@@ -1,6 +1,7 @@
 package amazoninternal.codingassessment;
 
 import java.util.*;
+
 /*
 * Buildable Packages / Package Dependency Graph
 *
@@ -17,14 +18,18 @@ Write a function to return a list of all packages that can now be built, ordered
 * */
 public class PackageDependency {
     public static void main(String args[]) {
-        String[] packages = {"a", "b", "c"};
+        String[] packages = {"a", "b", "c", "d", "e", "f", "g"};
 
         String[][] dependencies = {
                 {"b", "c"},
+                {"g", "d"},
                 {},
+                {"e", "f"},
+                {},
+                {"d"},
                 {}
         };
-        System.out.println("Packages to be built : " + getPackagesToBeBuilt(packages, dependencies, List.of("c")));
+        System.out.println("Packages to be built : " + getPackagesToBeBuilt(packages, dependencies, List.of("g", "e", "f")));
     }
 
     private static List<String> getPackagesToBeBuilt(String[] packages, String[][] dependencies, List<String> available) {
@@ -43,7 +48,7 @@ public class PackageDependency {
         Queue<String> queue = new LinkedList<>();
         Set<String> visited = new HashSet<>();
         for (String pkg : available) {
-            if (dependencyCount.getOrDefault(pkg, -1) == 0) {
+            if (!visited.contains(pkg) && dependencyCount.containsKey(pkg) && dependencyCount.get(pkg) == 0) {
                 queue.add(pkg);
                 visited.add(pkg);
             }
@@ -67,6 +72,23 @@ public class PackageDependency {
     }
 }
 /*
- * TC and SC O(V + E) V is total packages,
- * E is total dependency relationships. Every node and edge is processed at most once.
+ * V be the number of total packages
+ * E be the total number of direct dependency relationships across all packages.
+ * TC and SC O(V + E)
+ * BFS - Each package enters and leaves the BFS queue at most once, which takes
+ * O(V) operations. When popping a package, we iterate over its outgoing edges in dependencyList to
+ * decrement dependency counts. Across the entire traversal, every dependency edge is visited
+ * at most once, taking O(E) time.
+ *
+ * Why BFS not DFS?
+ *
+ * For the Amazon Buildable Packages problem, BFS (Kahn's Algorithm) is preferred over DFS because
+ * it operates naturally via forward propagation. Standard DFS traverses backwards from target nodes
+ * and relies on post-order recursion stack unwinding, whereas BFS allows us to directly seed the queue
+ * with all pre-compiled available packages as multi-source starting points. By continuously updating
+ * and checking each package's in-degree (remaining prerequisite count), BFS guarantees that a package
+ * enters the queue only after all of its prerequisites are satisfied. Furthermore, an iterative BFS
+ * avoids recursion depth limits (StackOverflowError) on deep dependency chains while cleanly
+ * modeling real-world parallel build waves.
+ *
  * */
