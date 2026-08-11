@@ -1,17 +1,16 @@
 package amazoninternal.lld.ratelimiter;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class TokenBucketRateLimiter implements RateLimiter {
-    int capacity;
-    Map<String, Bucket> buckets;
-    double refillRate;
+    private final double capacity;
+    private final double refillRate; // tokens per millisecond
+    private final Map<String, Bucket> buckets = new ConcurrentHashMap<>();
 
-    public TokenBucketRateLimiter(int capacity, int refillToken, long requestTime) {
+    public TokenBucketRateLimiter(int capacity, int refillTokens, long timeWindowMs) {
         this.capacity = capacity;
-        buckets = new HashMap<>();
-        refillRate = (double) refillToken / requestTime;
+        this.refillRate = (double) refillTokens / timeWindowMs;
     }
 
     @Override
@@ -20,30 +19,30 @@ public class TokenBucketRateLimiter implements RateLimiter {
         Bucket bucket = buckets.computeIfAbsent(key, k -> new Bucket(capacity, now));
 
         synchronized (bucket) {
+            // Lazy refill evaluation based on elapsed time
             long elapsedTime = now - bucket.lastRefillTimestamp;
             double tokensToAdd = elapsedTime * refillRate;
+
             if (tokensToAdd > 0) {
-                bucket.tokens = Math.min(capacity, (long) tokensToAdd + bucket.tokens);
+                bucket.tokens = Math.min(capacity, bucket.tokens + tokensToAdd);
                 bucket.lastRefillTimestamp = now;
             }
 
-            if (bucket.tokens > 0) {
-                bucket.tokens--;
+            if (bucket.tokens >= 1.0) {
+                bucket.tokens -= 1.0;
                 return true;
             }
+            return false;
         }
-
-        return false;
     }
 
-    class Bucket {
-        long tokens;
+    private static class Bucket {
+        double tokens;
         long lastRefillTimestamp;
 
-        public Bucket(long capacity, long timestamp) {
+        public Bucket(double capacity, long timestamp) {
             this.tokens = capacity;
             this.lastRefillTimestamp = timestamp;
         }
     }
 }
-

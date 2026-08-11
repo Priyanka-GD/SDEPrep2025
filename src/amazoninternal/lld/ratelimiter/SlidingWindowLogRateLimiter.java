@@ -23,7 +23,7 @@ public class SlidingWindowLogRateLimiter implements RateLimiter {
         Deque<Long> timestamps = userLogs.computeIfAbsent(key, k -> new ArrayDeque<>());
 
         synchronized (timestamps) {
-            // Remove outdated timestamps
+            // Remove outdated timestamps outside current window
             while (!timestamps.isEmpty() && timestamps.peekFirst() <= windowBoundary) {
                 timestamps.pollFirst();
             }
